@@ -62,6 +62,7 @@ void interprete(cmdline* l){
 				} 
 
 			}
+			exit(0);
 		}
 		waitpid(-1, NULL, 0);
 	}
