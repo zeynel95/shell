@@ -178,6 +178,7 @@ cmdline *readcmd(void)
 	seq[0] = 0;
 	seq_len = 0;
 
+
 	words = split_in_words(line);
 	free(line);
 
@@ -189,6 +190,7 @@ cmdline *readcmd(void)
 	s->in = 0;
 	s->out = 0;
 	s->seq = 0;
+	s->bg = 0;
 
 	i = 0;
 	while ((w = words[i++]) != 0) {
@@ -233,9 +235,14 @@ cmdline *readcmd(void)
 			cmd_len = 0;
 			break;
 		default:
-			cmd = xrealloc(cmd, (cmd_len + 2) * sizeof(char *));
-			cmd[cmd_len++] = w;
-			cmd[cmd_len] = 0;
+			if (!strcmp(w, "&")){
+				s->bg = 1;
+			}
+			else{
+				cmd = xrealloc(cmd, (cmd_len + 2) * sizeof(char *));
+				cmd[cmd_len++] = w;
+				cmd[cmd_len] = 0;
+			}
 		}
 	}
 

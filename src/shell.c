@@ -14,8 +14,6 @@ void interprete(cmdline* l){
 		exit(0);
 	}
 	else{
-		if(Fork() == 0)
-		{
 			int Tact[2];
 			int Tprec[2];
 
@@ -56,21 +54,28 @@ void interprete(cmdline* l){
 					}
 				}
 				else{
-					waitpid(-1, NULL, 0);
 					close(Tact[1]);
 					Tprec[0] = Tact[0];
 				} 
-
 			}
-			exit(0);
+			if(l->bg == 1)
+				waitpid(-1, NULL, WNOHANG);
+			else
+				waitpid(-1, NULL, 0);
 		}
-		waitpid(-1, NULL, 0);
-	}
+}
+void child_handler(int sig) {
+	while (wait(NULL) > 0);
 }
 
+void int_handler(int sig){
+	printf("\nshell> ");
+}
 
 int main()
 {
+	Signal(SIGCHLD, child_handler);
+	Signal(SIGINT, int_handler);
 	while (1) {
 		cmdline *l;
 		// int i, j;
@@ -102,6 +107,8 @@ int main()
 		// 	}
 		// 	printf("\n");
 		// }
+		// printf("  (bg) = %d\n", l->bg);
+
 		interprete(l);
 	}
 }

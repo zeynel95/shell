@@ -9,6 +9,7 @@
 
 /* Structure returned by readcmd() */
 typedef struct {
+	int bg; // element a 1 si & a la fin de la sequence
 	char *err;	/* If not null, it is an error message that should be
 			   displayed. The other fields are null. */
 	char *in;	/* If not null : name of file for input redirection. */
