@@ -8,7 +8,47 @@
 #include "readcmd.h"
 #include "csapp.h"
 
+int Tpid[50];
+
+void ajouter(int p){
+	int  i = 0;
+	while (Tpid[i] != -1)
+	{
+		i++;
+	}
+	Tpid[i] = p;
+}
+
+void supprimmer(int p){
+	for (int i = 0; i < 50; i++)
+	{
+		if(Tpid[i] == p)
+		{
+			Tpid[i] = -1;
+			return ;
+		}
+	}
+	
+}
+
+void init(){
+	for (int i = 0; i < 50; i++)
+	{
+		Tpid[i] = -1;
+	}
+}
+
+int est_vide(){
+	for (int i = 0; i < 50; i++)
+	{
+		if (Tpid[i] != -1)
+			return 0;		
+	}
+	return 1;
+}
+
 void interprete(cmdline* l){
+	int pid;
 	int i = 0;
 	if(!strcmp(l->seq[0][0], "quit")){
 		exit(0);
@@ -35,7 +75,7 @@ void interprete(cmdline* l){
 				if(l->seq[i+1]!=0)	
 					pipe(Tact);
 
-				if (Fork() == 0)
+				if ((pid = Fork()) == 0)
 				{
 					if(l->seq[i+1]!=0){
 						close(Tact[0]);
@@ -54,28 +94,47 @@ void interprete(cmdline* l){
 					}
 				}
 				else{
+					ajouter(pid);
 					close(Tact[1]);
 					Tprec[0] = Tact[0];
 				} 
 			}
-			if(l->bg == 1)
-				waitpid(-1, NULL, WNOHANG);
-			else
-				waitpid(-1, NULL, 0);
+			if(l->bg == 1){
+				while(waitpid(-1, NULL, WNOHANG)>0);
+				init();
+			}
+			else{
+				while(!est_vide()){
+					pid = waitpid(-1, NULL, 0);
+					supprimmer(pid);
+				}
+			}
 		}
 }
 void child_handler(int sig) {
-	while (wait(NULL) > 0);
+    int pid;
+	while((pid = waitpid(-1, NULL, WNOHANG))>0){
+		supprimmer(pid);
+	}
 }
 
-void int_handler(int sig){
-	printf("\nshell> ");
-}
+// void int_handler(int sig){
+// 	// for(int i = 0; i < 50; i++){
+// 	// 	if(Tpid[i] != -1)
+// 	// 		Kill(Tpid[i],SIGKILL);
+// 	// }
+// 	printf("\nshell> ");
+// }
+
 
 int main()
 {
+	// on initialise Tpid
+	init();
+	
+
 	Signal(SIGCHLD, child_handler);
-	Signal(SIGINT, int_handler);
+	// Signal(SIGINT, int_handler);
 	while (1) {
 		cmdline *l;
 		// int i, j;
