@@ -15,21 +15,6 @@ Le shell peut executer
  
 Tout les fonctionalites vont etre montre par la suite des tests sur notre terminal
 
-## Bugs detecte, a faire
-- ligne vide -> seg fault
-- cat < Makefile (une fois execute il exit)
-- ls > a.txt (il affiche rien, il met `shell>exit` dans a.txt)
-- ls < alksdjf ( il close le shell apres l'affichage d'erreur )
-- pas de `cd ..`
-- il execute pas `jobs`
-- `cat &` avec ls il execute pas ls, mais il fait cat
-
-
-## Bugs detecte, partie 2
-- echo a | echo b
-- cat &, ls, ls, ls, ls, ls, ls
-<!-- il execute 2 fois cat, la troisiem est execute comme commande -->
-
 ## Tests effectuees
 - test_redi -> tests redirection
 - test_simple -> test de commandes simples
