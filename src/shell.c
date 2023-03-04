@@ -57,18 +57,23 @@ void interprete(cmdline* l){
 			int Tact[2];
 			int Tprec[2];
 
-			if (l->in)
-			{
-				int fd1 = Open(l->in, O_RDONLY, 0);
-				Dup2(fd1, 0);
-				Close(fd1);
-			}
+			// int saved_stdin;
+			// int saved_stdout;
 
-			if (l->out){
-				int fd2 = Open(l->out, O_WRONLY | O_CREAT, 0);
-				Dup2(fd2,1);
-				Close(fd2);
-			}
+			// if (l->in)
+			// {
+			// 	// saved_stdin = dup(STDIN_FILENO);
+			// 	int fd1 = Open(l->in, O_RDONLY, 0);
+			// 	Dup2(fd1, 0);
+			// 	Close(fd1);
+			// }
+
+			// if (l->out){
+			// 	// saved_stdout = dup(STDOUT_FILENO);
+			// 	int fd2 = Open(l->out, O_WRONLY | O_CREAT, 0);
+			// 	Dup2(fd2,1);
+			// 	Close(fd2);
+			// }
 			
 			for (i=0; l->seq[i]!=0; i++){
 				// cas particulier
@@ -77,6 +82,22 @@ void interprete(cmdline* l){
 
 				if ((pid = Fork()) == 0)
 				{
+					
+					if (l->in)
+					{
+						// saved_stdin = dup(STDIN_FILENO);
+						int fd1 = Open(l->in, O_RDONLY, 0);
+						Dup2(fd1, 0);
+						Close(fd1);
+					}
+
+					if (l->out){
+						// saved_stdout = dup(STDOUT_FILENO);
+						int fd2 = Open(l->out, O_WRONLY | O_CREAT, 0);
+						Dup2(fd2,1);
+						Close(fd2);
+					}
+
 					if(l->seq[i+1]!=0){
 						close(Tact[0]);
 						dup2(Tact[1], 1);
@@ -109,6 +130,14 @@ void interprete(cmdline* l){
 					supprimmer(pid);
 				}
 			}
+			// if (l->in)
+			// {
+			// 	dup2(saved_stdin, STDIN_FILENO);
+			// }
+
+			// if (l->out){
+			// 	dup2(saved_stdout, STDOUT_FILENO);
+			// }
 		}
 }
 void child_handler(int sig) {
