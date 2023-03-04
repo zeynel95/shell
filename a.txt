@@ -1,7 +1,8 @@
-M2
 Makefile
+README.md
+a.txt
 sdriver.pl
 shell
 src
 tests
-s
+shell> exit

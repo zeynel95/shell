@@ -1,0 +1,8 @@
+#
+# test_redi_01.txt - Exécuter une commande avec redirection output/input
+# b.txt contient Makefile 
+#
+ls > a.txt
+chmod 777 a.txt
+grep M < a.txt > b.txt
+

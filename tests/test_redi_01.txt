@@ -1,0 +1,4 @@
+#
+# test_redi_01.txt - Exécuter une commande avec redirection output
+#
+ls > a.txt
