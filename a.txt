@@ -2,8 +2,8 @@ Makefile
 README.md
 a.txt
 b.txt
-sdriver.pl
+cat
+sdriver.p
 shell
 src
 tests
-shell> 

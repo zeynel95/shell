@@ -1,0 +1,4 @@
+#
+# test_pipe05.txt - Tester la gestion des zombies
+#
+echo a | echo b
