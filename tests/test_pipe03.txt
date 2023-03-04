@@ -1,4 +1,4 @@
 #
 # test_pipe03.txt - Exécuter des pipes 
 #
-ls | grep m | wc
+ls | grep m | wc -w

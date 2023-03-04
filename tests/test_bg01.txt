@@ -1,6 +1,6 @@
 #
 # test_bg01.txt - Exécuter des &
-#
-cat &
+# 
+sleep 5 &
 ls
-ls
+ps
