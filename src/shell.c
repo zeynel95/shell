@@ -50,6 +50,7 @@ int est_vide(){
 void interprete(cmdline* l){
 	int pid;
 	int i = 0;
+	if(l->seq[0] == NULL) return;
 	if(!strcmp(l->seq[0][0], "quit")){
 		exit(0);
 	}
