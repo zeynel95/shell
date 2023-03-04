@@ -1,0 +1,4 @@
+#
+# test_pipe01.txt - Exécuter des pipes 
+#
+echo "1" | echo "2"

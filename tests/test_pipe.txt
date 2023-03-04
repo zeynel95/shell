@@ -1,4 +1,0 @@
-#
-# test_pipe.txt - Exécuter des commandes 
-#
-ls | echo "hello world"

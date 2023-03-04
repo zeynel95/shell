@@ -1,8 +1,9 @@
 Makefile
 README.md
 a.txt
+b.txt
 sdriver.pl
 shell
 src
 tests
-shell> exit
+shell> 

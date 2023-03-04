@@ -1,0 +1,6 @@
+#
+# test_bg01.txt - Exécuter des &
+#
+cat &
+ls
+ls

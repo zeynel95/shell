@@ -1,0 +1,5 @@
+#
+# test_pipe03.txt - Exécuter des pipes avec entree sortie
+#
+ls > a.txt
+cat < a.txt | grep a | wc -w > b.txt

@@ -24,3 +24,17 @@ Tout les fonctionalites vont etre montre par la suite des tests sur notre termin
 - il execute pas `jobs`
 - `cat &` avec ls il execute pas ls, mais il fait cat
 
+
+## Bugs detecte, partie 2
+- echo a | echo b
+- cat &, ls, ls, ls, ls, ls, ls
+<!-- il execute 2 fois cat, la troisiem est execute comme commande -->
+
+## Tests effectuees
+- test_redi -> tests redirection
+- test_simple -> test de commandes simples
+- test_pipe -> test pour commandes composees
+- test_bg -> test pour `&`
+
+## Launch tests
+./sdriver.pl -t tests/test01.txt -s ./shell

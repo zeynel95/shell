@@ -1,0 +1,4 @@
+#
+# test_pipe02.txt - Exécuter des pipes 
+#
+echo "1" | cat
